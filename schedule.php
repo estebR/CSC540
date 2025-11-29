@@ -1,0 +1,177 @@
+<?php include "navbar.php"; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Appointment</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body style="background-color: #f4f6ff;">
+
+
+
+
+<!-- ================= BODY LAYOUT ================= -->
+
+<div class="container py-5">
+
+  <div class="row">
+
+    <!-- LEFT COLUMN — TUTORS -->
+    <div class="col-md-6">
+      <h2 class="fw-bold mb-4 text-center">Meet Our Expert Tutors</h2>
+
+      <!-- TUTOR CARD 1 -->
+      <div class="card shadow-sm p-3 mb-4 border-0" style="border-radius: 18px;">
+        <div class="d-flex align-items-center">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" class="rounded-circle me-3" width="70">
+          <div>
+            <h5 class="fw-bold">Dr. Sarah Johnson</h5>
+            <p class="text-secondary mb-1">Mathematics & Physics</p>
+            <p class="text-warning mb-2">⭐ 5.0 (127 reviews)</p>
+            <button class="btn btn-primary btn-sm book-btn" data-tutor="Dr. Sarah Johnson — Math & Physics">
+              Book Session
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TUTOR CARD 2 -->
+      <div class="card shadow-sm p-3 mb-4 border-0" style="border-radius: 18px;">
+        <div class="d-flex align-items-center">
+          <img src="https://randomuser.me/api/portraits/men/60.jpg" class="rounded-circle me-3" width="70">
+          <div>
+            <h5 class="fw-bold">Prof. Michael Chen</h5>
+            <p class="text-secondary mb-1">Computer Science</p>
+            <p class="text-warning mb-2">⭐ 4.9 (89 reviews)</p>
+            <button class="btn btn-primary btn-sm book-btn" data-tutor="Prof. Michael Chen — Computer Science">
+              Book Session
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TUTOR CARD 3 -->
+      <div class="card shadow-sm p-3 mb-4 border-0" style="border-radius: 18px;">
+        <div class="d-flex align-items-center">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle me-3" width="70">
+          <div>
+            <h5 class="fw-bold">Dr. Emily Rodriguez</h5>
+            <p class="text-secondary mb-1">Chemistry & Biology</p>
+            <p class="text-warning mb-2">⭐ 4.8 (156 reviews)</p>
+            <button class="btn btn-primary btn-sm book-btn" data-tutor="Dr. Emily Rodriguez — Chemistry & Biology">
+              Book Session
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- RIGHT COLUMN — SCHEDULE FORM -->
+    <div class="col-md-6">
+      <h2 class="fw-bold mb-4 text-center">Schedule Your Session</h2>
+
+      <div class="card shadow p-4 border-0" style="border-radius: 20px;">
+        <form>
+
+          <!-- TUTOR DROPDOWN -->
+          <div class="mb-3">
+            <label class="fw-bold">Tutor</label>
+            <select id="tutorSelect" class="form-select p-3">
+              <option selected>Select a tutor</option>
+              <option>Dr. Sarah Johnson — Math & Physics</option>
+              <option>Prof. Michael Chen — Computer Science</option>
+              <option>Dr. Emily Rodriguez — Chemistry & Biology</option>
+            </select>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="fw-bold">Subject</label>
+              <select class="form-select p-3">
+                <option>Select a subject</option>
+                <option>Computer Science</option>
+                <option>Mathematics</option>
+                <option>Chemistry</option>
+                <option>Biology</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label class="fw-bold">Session Type</label>
+              <select class="form-select p-3">
+                <option>One-on-One</option>
+                <option>Group Session</option>
+                <option>Online</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="fw-bold">Preferred Date</label>
+              <input type="date" class="form-control p-3">
+            </div>
+
+            <div class="col">
+              <label class="fw-bold">Preferred Time</label>
+              <select class="form-select p-3">
+                <option>Morning (9AM - 12PM)</option>
+                <option>Afternoon (12PM - 4PM)</option>
+                <option>Evening (4PM - 8PM)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="fw-bold">Additional Notes</label>
+            <textarea class="form-control p-3" rows="5" placeholder="Any specific topics or requirements?"></textarea>
+          </div>
+
+          <button class="btn btn-primary w-100 p-3 fw-bold" type="submit" style="border-radius: 12px;">
+            Schedule Appointment
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= SCRIPT: AUTO-SELECT TUTOR ================= -->
+<script>
+  const tutorButtons = document.querySelectorAll(".book-btn");
+  const tutorSelect = document.getElementById("tutorSelect");
+
+  tutorButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const tutorName = button.getAttribute("data-tutor");
+      tutorSelect.value = tutorName;
+
+      // Smooth scroll to form
+      tutorSelect.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

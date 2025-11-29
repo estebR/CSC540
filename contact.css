@@ -1,0 +1,9 @@
+input, textarea {
+  border-radius: 12px !important;
+  border: 1.5px solid #d9dce6;
+}
+
+input:focus, textarea:focus {
+  border-color: #4463ff !important;
+  box-shadow: 0 0 8px rgba(68, 99, 255, 0.2) !important;
+}
