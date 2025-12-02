@@ -22,15 +22,16 @@ DROP TABLE IF EXISTS Accounts;
 -- =========================
 -- Accounts
 -- =========================
-CREATE TABLE Accounts (
+
+-- =============CREATE TABLE Accounts (
   account_id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email        VARCHAR(100) NOT NULL UNIQUE,
+  password     VARCHAR(255) NOT NULL,     -- 🔥 added password column
   role         ENUM('student','tutor','admin') NOT NULL,
   created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   last_login   DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- =========================
+============
 -- Users
 -- =========================
 CREATE TABLE Users (
