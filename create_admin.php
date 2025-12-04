@@ -1,7 +1,7 @@
 <?php
 require 'db.php';
 
-$adminEmail = "admin@yourdomain.edu";
+$adminEmail = "admin@southernct.edu";
 $adminPass = password_hash("AdminPassword123", PASSWORD_DEFAULT);
 $role = "admin";
 

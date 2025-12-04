@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        $result  = mysqli_stmt_get_result($stmt);
         $account = mysqli_fetch_assoc($result);
         mysqli_stmt_close($stmt);
 
@@ -46,7 +46,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $account_id = (int)$account['account_id'];
                 $role       = $account['role'];
 
-                // Fetch associated user row
+                // --------------------------------------------------
+                // ADMIN: no Users row required
+                // --------------------------------------------------
+                if ($role === 'admin') {
+                    // Optional: update last_login for admin
+                    $updateSql = "UPDATE Accounts SET last_login = NOW() WHERE account_id = ?";
+                    $updateStmt = mysqli_prepare($conn, $updateSql);
+                    mysqli_stmt_bind_param($updateStmt, "i", $account_id);
+                    mysqli_stmt_execute($updateStmt);
+                    mysqli_stmt_close($updateStmt);
+
+                    // Store session data for admin
+                    $_SESSION['account_id'] = $account_id;
+                    // Admin doesn't need a Users row; we can leave user_id unset or 0
+                    $_SESSION['user_id']    = 0;
+                    $_SESSION['role']       = 'admin';
+
+                    // Use a simple name for navbar
+                    $_SESSION['full_name']  = 'Admin';
+
+                    header("Location: home.php");
+                    exit;
+                }
+
+                // --------------------------------------------------
+                // STUDENT / TUTOR: must have a Users row
+                // --------------------------------------------------
                 $userSql = "SELECT user_id, first_name, last_name FROM Users WHERE account_id = ?";
                 $userStmt = mysqli_prepare($conn, $userSql);
                 mysqli_stmt_bind_param($userStmt, "i", $account_id);

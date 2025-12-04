@@ -5,25 +5,7 @@ CREATE DATABASE IF NOT EXISTS tutoring_system
 
 USE tutoring_system;
 
--- Drop in FK-safe order for development
-DROP TABLE IF EXISTS Notes;
-DROP TABLE IF EXISTS Waitlist;
-DROP TABLE IF EXISTS Reviews;
-DROP TABLE IF EXISTS AppointmentStudent;
-DROP TABLE IF EXISTS Availability;
-DROP TABLE IF EXISTS TutorQualification;
-DROP TABLE IF EXISTS Tutors;
-DROP TABLE IF EXISTS Students;
-DROP TABLE IF EXISTS Booked;
-DROP TABLE IF EXISTS Subject;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Accounts;
-
--- =========================
--- Accounts
--- =========================
-
--- =============CREATE TABLE Accounts (
+CREATE TABLE Accounts (
   account_id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email        VARCHAR(100) NOT NULL UNIQUE,
   password     VARCHAR(255) NOT NULL,     -- 🔥 added password column
@@ -33,7 +15,7 @@ DROP TABLE IF EXISTS Accounts;
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ============
 -- Users
--- =========================
+
 CREATE TABLE Users (
   user_id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   account_id    INT UNSIGNED NULL,
@@ -46,9 +28,9 @@ CREATE TABLE Users (
     ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Students
--- =========================
+
 CREATE TABLE Students (
   user_id    INT UNSIGNED PRIMARY KEY,
   class_year INT NULL,
@@ -58,9 +40,9 @@ CREATE TABLE Students (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Tutors
--- =========================
+
 CREATE TABLE Tutors (
   user_id                INT UNSIGNED PRIMARY KEY,
   bio                    TEXT NULL,
@@ -70,9 +52,9 @@ CREATE TABLE Tutors (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Subject
--- =========================
+
 CREATE TABLE Subject (
   subject_id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   subject_name VARCHAR(100) NOT NULL,
@@ -80,9 +62,9 @@ CREATE TABLE Subject (
   level        INT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- TutorQualification
--- =========================
+
 CREATE TABLE TutorQualification (
   user_id           INT UNSIGNED NOT NULL,
   subject_id        INT UNSIGNED NOT NULL,
@@ -96,9 +78,9 @@ CREATE TABLE TutorQualification (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Availability
--- =========================
+
 CREATE TABLE Availability (
   availability_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id         INT UNSIGNED NOT NULL,
@@ -110,9 +92,9 @@ CREATE TABLE Availability (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Booked
--- =========================
+
 CREATE TABLE Booked (
   booked_id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id               INT UNSIGNED NOT NULL,   -- tutor or owner of the session
@@ -138,10 +120,10 @@ CREATE TABLE Booked (
     ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- AppointmentStudent
 -- (bridge: which students joined a booked session)
--- =========================
+
 CREATE TABLE AppointmentStudent (
   booked_id     INT UNSIGNED NOT NULL,
   user_id       INT UNSIGNED NOT NULL,
@@ -156,9 +138,9 @@ CREATE TABLE AppointmentStudent (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Reviews
--- =========================
+
 CREATE TABLE Reviews (
   review_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id   INT UNSIGNED NOT NULL,
@@ -171,9 +153,9 @@ CREATE TABLE Reviews (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Waitlist
--- =========================
+
 CREATE TABLE Waitlist (
   waitlist_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   booked_id   INT UNSIGNED NOT NULL,
@@ -190,9 +172,9 @@ CREATE TABLE Waitlist (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Notes
--- =========================
+
 CREATE TABLE Notes (
   note_id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   booked_id INT UNSIGNED NOT NULL,
